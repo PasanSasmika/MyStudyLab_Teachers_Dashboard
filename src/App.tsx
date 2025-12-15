@@ -1,8 +1,9 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import { useAuthStore } from './store/authStore';
-import Login from './pages/login';
 import type { ReactNode } from 'react';
+import CreateExam from './pages/CreateExam';
+import Login from './pages/Login';
 
 // Protected Route Component
 function ProtectedRoute({ children }: { children: ReactNode }) {
@@ -14,14 +15,8 @@ export default function App() {
     <Routes>
       <Route path="/login" element={<Login />} />
 
-      <Route
-        path="/dashboard"
-        element={
-          <ProtectedRoute>
-            <Dashboard />
-          </ProtectedRoute>
-        }
-      />
+      <Route path="/dashboard" element={ <ProtectedRoute> <Dashboard /> </ProtectedRoute>} />
+      <Route path="/create-exam" element={ <ProtectedRoute> <CreateExam /> </ProtectedRoute>} />
 
       <Route path="*" element={<Navigate to="/dashboard" replace />} />
     </Routes>
