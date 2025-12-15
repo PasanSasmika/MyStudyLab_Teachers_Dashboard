@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import api from '../lib/api';
 import { useAuthStore } from '../store/authStore';
 import { Plus, Users, LogOut } from 'lucide-react'; // Icons
+import { useNavigate } from 'react-router-dom';
 
 interface Batch {
   _id: string;
@@ -14,7 +15,7 @@ export default function Dashboard() {
   const [batches, setBatches] = useState<Batch[]>([]);
   const user = useAuthStore((state) => state.user);
   const logout = useAuthStore((state) => state.logout);
-
+  const navigate = useNavigate();
   useEffect(() => {
     fetchBatches();
   }, []);
@@ -54,12 +55,21 @@ export default function Dashboard() {
       <main className="max-w-7xl mx-auto p-6">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold text-gray-800">My Batches</h2>
-          <button 
-            onClick={createBatch}
-            className="flex items-center gap-2 px-4 py-2 text-white bg-blue-600 rounded hover:bg-blue-700"
-          >
-            <Plus size={18} /> New Batch
-          </button>
+          <div className="flex gap-2">
+  <button 
+    onClick={() => navigate('/create-exam')}
+    className="flex items-center gap-2 px-4 py-2 text-white bg-green-600 rounded hover:bg-green-700"
+  >
+    <Plus size={18} /> New Exam
+  </button>
+  
+  <button 
+    onClick={createBatch}
+    className="flex items-center gap-2 px-4 py-2 text-white bg-blue-600 rounded hover:bg-blue-700"
+  >
+    <Plus size={18} /> New Batch
+  </button>
+</div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
